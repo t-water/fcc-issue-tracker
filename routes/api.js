@@ -70,28 +70,27 @@ module.exports = function (app) {
     })    
   
     .delete(function (req, res, next){
-      res.json("test");
-      // if(req.body._id == ""){
-      //   res.send('_id error');
-      // }
-      // Issues.findById(req.body._id)
-      // .then(issue => {
-      //   if(issue != null){
-      //     Issues.findByIdAndDelete(req.body._id)
-      //     .then(issue => {
-      //       res.statusCode = 200;
-      //       res.setHeader('Content-Type', 'application/text');
-      //       res.send("Deleted " + req.body._id);
-      //     })
-      //     .catch(err => {
-      //       res.send('Could not delete ' + req.body._id)
-      //     })
-      //   }else{
-      //     res.send('Could not delete ' + req.body._id)
-      //   }
-      // })
-      // .catch(err => {
-      //   res.send('Could not delete ' + req.body._id)
-      // })
+      if(req.body._id == ""){
+        res.send('_id error');
+      }
+      Issues.findById(req.body._id)
+      .then(issue => {
+        if(issue != null){
+          Issues.findByIdAndRemove(req.body._id)
+          .then(issue => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/text');
+            res.send("Deleted " + req.body._id);
+          })
+          .catch(err => {
+            res.send('Could not delete ' + req.body._id)
+          })
+        }else{
+          res.send('Could not delete ' + req.body._id)
+        }
+      })
+      .catch(err => {
+        res.send('Could not delete ' + req.body._id)
+      })
     });
 };
