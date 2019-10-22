@@ -31,7 +31,7 @@ module.exports = function (app) {
       Issues.create(req.body)
       .then(issue => {
         res.statusCode = 200;
-        res.setHeader('Content Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json');
         res.json(issue);
       })
       .catch(err => next(err))
@@ -51,7 +51,7 @@ module.exports = function (app) {
           }, {new: true})
           .then(issue => {
             res.statusCode = 200;
-            res.setHeader('Content Type', 'application/json');
+            res.setHeader('Content-Type', 'application/json');
             res.json(issue)
           })
           .catch(err => next(err))
