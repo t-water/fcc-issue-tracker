@@ -38,6 +38,11 @@ module.exports = function (app) {
     })
     
     .put(function (req, res, next){
+      Object.keys(req.body).forEach(item => {
+        if(req.body[item] === ""){
+          delete req.body[item]
+        }
+      })
       Issues.findById(req.body._id)
       .then(issue => {
         if(issue != null){
