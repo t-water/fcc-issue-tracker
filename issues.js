@@ -19,6 +19,10 @@ const issueSchema = new Schema({
   },
   status_text: {
     type: String
+  },
+  open: {
+    type: Boolean,
+    default: true
   }
 }, {
   timestamps: true
