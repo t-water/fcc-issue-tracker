@@ -46,29 +46,27 @@ module.exports = function (app) {
       let id = req.body._id
       delete req.body._id
       if(Object.keys(req.body).length == 0){
-        res.send()
+        res.send("No updated field sent")
       }
-      // Issues.findById(req.body._id)
-      // .then(issue => {
-      //   if(issue != null){
-      //     Issues.findByIdAndUpdate(req.body._id, {
-      //       $set: req.body
-      //     }, {new: true})
-      //     .then(issue => {
-      //       res.statusCode = 200;
-      //       res.setHeader('Content-Type', 'application/json');
-      //       res.json("Successfully updated.")
-      //     })
-      //     .catch(err => next(err))
-      //   }else{
-      //     res.statusCode = 404;
-      //     let err = new Error('Could not update: ' + req.body._id)
-      //     res.json(err);
-      //   }
-      // })
-      // .catch(err => {
-      //   res.send('Could not update: ' + req.body._id);
-      // })
+      Issues.findById(id)
+      .then(issue => {
+        if(issue != null){
+          Issues.findByIdAndUpdate(id, {
+            $set: req.body
+          }, {new: true})
+          .then(issue => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/text');
+            res.send("Successfully updated.");
+          })
+          .catch(err => res.send('Could not update: ' + id))
+        }else{
+          res.send('Could not update: ' + id);
+        }
+      })
+      .catch(err => {
+        res.send('Could not update: ' + id);
+      })
     })
     
     .delete(function (req, res, next){
