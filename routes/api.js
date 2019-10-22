@@ -38,37 +38,37 @@ module.exports = function (app) {
     })
     
     .put(function (req, res, next){
-      Object.keys(req.body).forEach(item => {
-        if(req.body[item] === ""){
-          delete req.body[item]
-        }
-      })
-      let id = req.body._id
-      delete req.body._id
-      if(Object.keys(req.body).length == 0){
-        res.send("No updated field sent")
-      }
-      Issues.findById(id)
-      .then(issue => {
-        if(issue != null){
-          Issues.findByIdAndUpdate(id, {
-            $set: req.body
-          }, {new: true})
-          .then(issue => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/text');
-            res.send("Successfully updated.");
-          })
-          .catch(err => res.send('Could not update: ' + id))
-        }else{
-          res.send('Could not update: ' + id);
-        }
-      })
-      .catch(err => {
-        res.send('Could not update: ' + id);
-      })
-    })
-    
+      res.send(req.body.open)     
+      // Object.keys(req.body).forEach(item => {
+      //   if(req.body[item] === ""){
+      //     delete req.body[item]
+      //   }
+      // })
+      // let id = req.body._id
+      // delete req.body._id
+      // if(Object.keys(req.body).length == 0){
+      //   res.send("No updated field sent")
+      // }
+      // Issues.findById(id)
+      // .then(issue => {
+      //   if(issue != null){
+      //     Issues.findByIdAndUpdate(id, {
+      //       $set: req.body
+      //     }, {new: true})
+      //     .then(issue => {
+      //       res.statusCode = 200;
+      //       res.setHeader('Content-Type', 'application/text');
+      //       res.send("Successfully updated.");
+      //     })
+      //     .catch(err => res.send('Could not update: ' + id))
+      //   }else{
+      //     res.send('Could not update: ' + id);
+      //   }
+      // })
+      // .catch(err => {
+      //   res.send('Could not update: ' + id);
+      // })
+    })    
     .delete(function (req, res, next){
       var project = req.params.project;
       
