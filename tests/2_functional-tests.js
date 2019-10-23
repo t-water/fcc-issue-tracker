@@ -57,10 +57,10 @@ suite('Functional Tests', function() {
         chai.request(server)
         .post('/api/issues/test')
         .send({
-          
+          assigned_to: 'Chai and Mocha'
         })
         .end(function(err, res){
-          assert.equal(err.message, 'Post unsuccessfu'l);
+          assert.equal(err.message, 'Post unsuccessfu');
           done();
         });
       });
@@ -70,7 +70,15 @@ suite('Functional Tests', function() {
     suite('PUT /api/issues/{project} => text', function() {
       
       test('No body', function(done) {
-        
+        chai.request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: '5dafb6d920b2770aeffdd42f'
+        })
+        .end(function(err, res){
+          assert.equal(res, 'No updated field sent');
+          done();
+        });
       });
       
       test('One field to update', function(done) {

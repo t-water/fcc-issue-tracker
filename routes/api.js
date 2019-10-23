@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 
 const CONNECTION_STRING = process.env.DB;
 
-mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true});
+mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true, useFindAndModify: false });
 
 module.exports = function (app) {
 
@@ -44,7 +44,6 @@ module.exports = function (app) {
         res.json(issue);
       })
       .catch(err => {
-        err.message('Post unsuccessful')
         return next(err)
       })
     })
