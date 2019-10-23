@@ -54,7 +54,15 @@ suite('Functional Tests', function() {
       });
       
       test('Missing required fields', function(done) {
-        
+        chai.request(server)
+        .post('/api/issues/test')
+        .send({
+          
+        })
+        .end(function(err, res){
+          assert.equal(err.message, 'Post unsuccessfu'l);
+          done();
+        });
       });
       
     });

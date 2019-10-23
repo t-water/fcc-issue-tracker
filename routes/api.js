@@ -14,7 +14,7 @@ var ObjectId = require('mongodb').ObjectID;
 var issueSchema = require('../issues');
 var mongoose = require('mongoose');
 
-const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+const CONNECTION_STRING = process.env.DB;
 
 mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true});
 
@@ -43,7 +43,10 @@ module.exports = function (app) {
         res.setHeader('Content-Type', 'application/json');
         res.json(issue);
       })
-      .catch(err => next(err))
+      .catch(err => {
+        err.message('Post unsuccessful')
+        return next(err)
+      })
     })
     
     .put(function (req, res, next){
