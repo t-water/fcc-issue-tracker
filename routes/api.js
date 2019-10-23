@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 
 const CONNECTION_STRING = process.env.DB;
 
-mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true, useFindAndModify: false });
+mongoose.connect(CONNECTION_STRING, {useNewUrlParser: true, useFindAndModify: false});
 
 module.exports = function (app) {
 
