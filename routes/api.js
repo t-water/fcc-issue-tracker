@@ -25,8 +25,13 @@ module.exports = function (app) {
     .get(function (req, res, next){
       var project = req.params.project;
       let Issues = mongoose.model(project, issueSchema, project);
-      Issues.find(req.params)
-      .then(issues => res.json(issues))
+      Issues.find(req.query)
+      .then(issues => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(issues);
+      })
+      .catch(err => next(err))
     })
     
     .post(function (req, res, next){
