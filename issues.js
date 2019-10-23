@@ -28,5 +28,5 @@ const issueSchema = new Schema({
   timestamps: true
 })
 
-var Issues = mongoose.model('Issue', issueSchema)
-module.exports = Issues;
+// var Issues = mongoose.model('Issue', issueSchema)
+module.exports = issueSchema;
